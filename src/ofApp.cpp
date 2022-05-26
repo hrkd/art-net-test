@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     string targetIP = "127.0.0.1";
-    int width = 170;
+    int width = 170*2;
     int height = 1;
     int internalformat = GL_RGB;
     sendData.allocate(width, height, internalformat);
@@ -23,14 +23,16 @@ void ofApp::update(){
     sendData.end();
     ofPixels data;
     sendData.readToPixels(data);
-    artnet.sendArtnet(data);
+    ofxArtnetMessage msg(data);
+    msg.setUniverse(0,0,0); //Net:SubNet:Universe
+    artnet.sendArtnet(msg);
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
     ofBackground(0, 0, 0);
     ofSetColor(255, 255, 255);
-    sendData.draw(0,0);
+    sendData.draw(0, 1);
 }
 
 //--------------------------------------------------------------
