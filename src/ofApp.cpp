@@ -2,17 +2,35 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-
+    string targetIP = "127.0.0.1";
+    int width = 170;
+    int height = 1;
+    int internalformat = GL_RGB;
+    sendData.allocate(width, height, internalformat);
+    artnet.setup(targetIP);
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+    sendData.begin();
+        ofClear(0);
+        ofColor color;
+        color.r = (ofNoise(ofGetElapsedTimef() + 0)*0.5+0.5) * 255;
+        color.g = (ofNoise(ofGetElapsedTimef() + 3000)) * 255;
+        color.b = (ofNoise(ofGetElapsedTimef() + 1000)) * 255;
+        ofSetColor(color);
+        ofDrawRectangle(0, 0, sendData.getWidth(), sendData.getHeight());
+    sendData.end();
+    ofPixels data;
+    sendData.readToPixels(data);
+    artnet.sendArtnet(data);
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-
+    ofBackground(0, 0, 0);
+    ofSetColor(255, 255, 255);
+    sendData.draw(0,0);
 }
 
 //--------------------------------------------------------------
