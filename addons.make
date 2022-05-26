@@ -1,2 +1,3 @@
 ofxArtnet
+ofxGui
 ofxNetwork
