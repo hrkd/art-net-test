@@ -1,0 +1,5 @@
+bin/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/xcworkspace/
+*.xcodeproj/xcshareddata/
+*.xcodeproj/project.xcworkspace/
